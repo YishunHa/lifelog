@@ -93,7 +93,7 @@ function Sidebar(props) {
 
       <Divider />
       <List component="nav">
-        <ListItem button onClick={() => props.setcol(1, 300)}>
+        <ListItem button onClick={() => props.setcol(1, 400)}>
           <ListItemText primary="Days" />
         </ListItem>
         <ListItem button onClick={() => props.setcol(2, 180)}>
@@ -102,7 +102,7 @@ function Sidebar(props) {
         <ListItem button onClick={() => props.setcol(3, 150)}>
           <ListItemText primary="Months" />
         </ListItem>
-        <ListItem button onClick={() => props.setcol(4, 150)}>
+        <ListItem button onClick={() => props.setcol(4, 120)}>
           <ListItemText primary="Years" />
         </ListItem>
       </List>

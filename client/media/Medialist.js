@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import Media from "./Media";
 import { read } from "./../user/api-user";
 import { Redirect, Link, withRouter } from "react-router-dom";
 import { listByUser } from "./api-media";
@@ -42,7 +41,7 @@ class Medialist extends Component {
       following: false,
       medias: [],
       col: 2,
-      colheight: 150
+      colheight: 180
     };
     this.match = match;
   }

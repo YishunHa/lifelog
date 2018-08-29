@@ -10,16 +10,13 @@ const GPSSchema = new mongoose.Schema({
     contentType: String
   },
   taken: {
-    type: Date,
-    required: "Date is required"
+    type: Date
   },
   longitude: {
-    type: Number,
-    required: "Longitude is required"
+    type: Number
   },
   latitude: {
-    type: Number,
-    required: "Latitude is required"
+    type: Number
   }
 });
 

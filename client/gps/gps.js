@@ -12,6 +12,14 @@ import ListSubheader from "material-ui/List/ListSubheader";
 import IconButton from "material-ui/IconButton";
 import InfoIcon from "material-ui-icons/DeleteForever";
 import Sidebar from "./../media/Sidebar";
+import Paper from "material-ui/Paper";
+import { withGoogleMap, GoogleMap } from "react-google-map";
+import GoogleMapLoader from "react-google-maps-loader";
+//import gpsstyles from "./gps.css";
+import iconMarker from "material-ui-icons/LocationOn";
+import iconMarkerHover from "material-ui-icons/LocationOn";
+import homeimg from "./../assets/images/1535542312193.png";
+//import GPSloader from "./GPSloader";
 
 const styles = theme => ({
   root: {
@@ -26,9 +34,17 @@ const styles = theme => ({
   },
   icon: {
     color: "rgba(255, 255, 255, 0.54)"
+  },
+  Paper: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2
+  },
+  map: {
+    height: 500
   }
 });
-
+const MY_API_KEY = "AIzaSyCzQNpK8OSEwzED8BFCUenPoMRdfBOKtHY";
 class Gps extends Component {
   constructor({ match }) {
     super();
@@ -59,6 +75,7 @@ class Gps extends Component {
 
   componentWillReceiveProps = props => {
     this.init();
+
     //this.init(props.match.params.userId);
   };
   componentDidMount = () => {
@@ -67,6 +84,7 @@ class Gps extends Component {
     //   this.init(this.state.user);
     // });
     this.init();
+    //this.initMap();
   };
 
   render() {
@@ -75,13 +93,23 @@ class Gps extends Component {
     if (redirectToSignin) {
       return <Redirect to="/signin" />;
     }
+
     return (
       <div className={classes.root} style={{ height: "auto" }}>
         <Grid container spacing={24}>
           <Grid item xs={3}>
             <Sidebar />
           </Grid>
-          <Grid item xs={21} />
+          <Grid item xs={21}>
+            <Paper className={classes.Paper} elevation={1}>
+              <div id="map" style={{ width: "600px", height: "600px" }}>
+                <img
+                  src={homeimg}
+                  style={{ width: "600px", height: "600px" }}
+                />
+              </div>
+            </Paper>
+          </Grid>
         </Grid>
       </div>
       //   <div style={{ marginTop: "24px" }}>
