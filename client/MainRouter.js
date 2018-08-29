@@ -10,7 +10,8 @@ import PrivateRoute from "./auth/PrivateRoute";
 import Menu from "./core/Menu";
 import Footer from "./footer/Mainfooter";
 import Createmedia from "./../client/media/CreateMedia";
-import CreateGPS from "./../client/gps/CreateGPS";
+import Gps from "./../client/gps/gps";
+import Medialist from "./media/Medialist";
 
 class MainRouter extends Component {
   // Removes the server-side injected CSS when React component mounts
@@ -29,8 +30,9 @@ class MainRouter extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/users" component={Users} />
           <Route path="/signup" component={Signup} />
-          <Route path="/creategps" component={CreateGPS} />
           <Route path="/createmedia" component={Createmedia} />
+          <Route path="/gps" component={Gps} />
+          <Route path="/medialist" component={Medialist} />
           <Route path="/signin" component={Signin} />
           <PrivateRoute path="/user/edit/:userId" component={EditProfile} />
           <Route path="/user/:userId" component={Profile} />

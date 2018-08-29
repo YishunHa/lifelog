@@ -11,13 +11,7 @@ router
 
 router.route("/api/medias/photo/:mediaId").get(mediaCtrl.photo);
 
-router
-  .route("/api/medias/by/:userId")
-  .get(authCtrl.requireSignin, mediaCtrl.listByUser);
-
-router
-  .route("/api/medias/feed/:userId")
-  .get(authCtrl.requireSignin, mediaCtrl.listNewsFeed);
+router.route("/api/medias/by/:userId").get(mediaCtrl.listByUser);
 
 router.route("/api/medias/like").put(authCtrl.requireSignin, mediaCtrl.like);
 router

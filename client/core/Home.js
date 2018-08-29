@@ -5,7 +5,8 @@ import Card, { CardContent, CardMedia } from "material-ui/Card";
 import Typography from "material-ui/Typography";
 import Grid from "material-ui/Grid";
 import auth from "./../auth/auth-helper";
-import seashellImg from "./../assets/images/homeimg.png";
+import homeimg from "./../assets/images/homeimg.png";
+import loginimg from "./../assets/images/login.png";
 
 const styles = theme => ({
   root: {
@@ -59,7 +60,7 @@ class Home extends Component {
                 >
                   Home Page
                 </Typography>
-                <CardMedia className={classes.media} image={seashellImg} />
+                <CardMedia className={classes.media} image={homeimg} />
                 <CardContent>
                   <Typography type="body1" component="p">
                     Welcome to Lifelogging Managment System
@@ -71,11 +72,10 @@ class Home extends Component {
         )}
         {!this.state.defaultPage && (
           <Grid container spacing={24}>
-            <Grid item xs={8} sm={7}>
-              <h1>welcom </h1>
-            </Grid>
-            <Grid item xs={6} sm={5}>
-              <h2>welcom </h2>
+            <Grid item xs={12}>
+              <Card className={classes.card}>
+                <CardMedia className={classes.media} image={loginimg} />
+              </Card>
             </Grid>
           </Grid>
         )}

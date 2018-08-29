@@ -1,1 +1,100 @@
-import Rea
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "material-ui/styles";
+import { read } from "./../user/api-user";
+import { Redirect, Link, withRouter } from "react-router-dom";
+import auth from "./../auth/auth-helper";
+import GridList from "material-ui/GridList";
+import Grid from "material-ui/Grid";
+import GridListTile from "material-ui/GridList/GridListTile";
+import GridListTileBar from "material-ui/GridList/GridListTileBar";
+import ListSubheader from "material-ui/List/ListSubheader";
+import IconButton from "material-ui/IconButton";
+import InfoIcon from "material-ui-icons/DeleteForever";
+import Sidebar from "./../media/Sidebar";
+
+const styles = theme => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden",
+    backgroundColor: theme.palette.background.paper
+  },
+  gridList: {
+    width: 600
+  },
+  icon: {
+    color: "rgba(255, 255, 255, 0.54)"
+  }
+});
+
+class Gps extends Component {
+  constructor({ match }) {
+    super();
+    this.state = {
+      user: "",
+      redirectToSignin: false,
+      following: false,
+      medias: []
+    };
+    this.match = match;
+  }
+
+  init = () => {
+    const jwt = auth.isAuthenticated();
+    read(
+      {
+        userId: jwt.user._id
+      },
+      { t: jwt.token }
+    ).then(data => {
+      if (data.error) {
+        this.setState({ redirectToSignin: true });
+      } else {
+        this.setState({ user: data });
+      }
+    });
+  };
+
+  componentWillReceiveProps = props => {
+    this.init();
+    //this.init(props.match.params.userId);
+  };
+  componentDidMount = () => {
+    // this.setState({ user: auth.isAuthenticated().user }, () => {
+    //   console.log(this.state.user);
+    //   this.init(this.state.user);
+    // });
+    this.init();
+  };
+
+  render() {
+    const { classes } = this.props;
+    const redirectToSignin = this.state.redirectToSignin;
+    if (redirectToSignin) {
+      return <Redirect to="/signin" />;
+    }
+    return (
+      <div className={classes.root} style={{ height: "auto" }}>
+        <Grid container spacing={24}>
+          <Grid item xs={3}>
+            <Sidebar />
+          </Grid>
+          <Grid item xs={21} />
+        </Grid>
+      </div>
+      //   <div style={{ marginTop: "24px" }}>
+      //     {this.state.medias.map((item, i) => {
+      //       return <Media media={item} key={i} onRemove={this.removeMedia} />;
+      //     })}
+      //   </div>
+    );
+  }
+}
+Gps.propTypes = {
+  classes: PropTypes.object.isRequired
+  //medias: PropTypes.array.isRequired,
+  //removeUpdate: PropTypes.func.isRequired
+};
+export default withStyles(styles)(Gps);

@@ -18,6 +18,24 @@ const create = (req, res, next) => {
     if (files.photo) {
       media.photo.data = fs.readFileSync(files.photo.path);
       media.photo.contentType = files.photo.type;
+
+      // var hi = fs.readFileSync(files.photo.path);
+      // var encodehi = new Buffer(hi).toString("base64");
+      // //console.log("encodehi.toString()");
+      // var path = files.photo.path;
+      // function upExif(e) {
+      //   // EXIF.getData(e, function() {
+      //   //   var datetime = EXIF.getTag(this, "DateTimeDigitized");
+      //   //   for (var i = 0; i < 2; i++) {
+      //   //     datetime = datetime.replace(/:/, "/");
+      //   //   }
+      //   //   var date = new Date(datetime);
+      //   //   date = date.toISOString();
+      //   //   console.log("in the function");
+      //   // });
+      //   console.log(e);
+      // }
+      // upExif(encodehi);
     }
     media.save((err, result) => {
       if (err) {
@@ -48,25 +66,7 @@ const listByUser = (req, res) => {
     .populate("comments", "text created")
     .populate("comments.mediaedBy", "_id name")
     .populate("mediaedBy", "_id name")
-    .sort("-created")
-    .exec((err, medias) => {
-      if (err) {
-        return res.status(400).json({
-          error: errorHandler.getErrorMessage(err)
-        });
-      }
-      res.json(medias);
-    });
-};
-
-const listNewsFeed = (req, res) => {
-  let following = req.profile.following;
-  following.push(req.profile._id);
-  Media.find({ mediaedBy: { $in: req.profile.following } })
-    .populate("comments", "text created")
-    .populate("comments.mediaedBy", "_id name")
-    .populate("mediaedBy", "_id name")
-    .sort("-created")
+    .sort("-taken")
     .exec((err, medias) => {
       if (err) {
         return res.status(400).json({
@@ -175,7 +175,6 @@ const isMediaer = (req, res, next) => {
 
 export default {
   listByUser,
-  listNewsFeed,
   create,
   mediaByID,
   remove,

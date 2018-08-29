@@ -63,6 +63,28 @@ const Menu = withRouter(({ history }) => (
             </Button>
           </Link>
 
+          <Link to={"/medialist/" + auth.isAuthenticated().user._id}>
+            <Button
+              style={isActive(
+                history,
+                "/medialist/" + auth.isAuthenticated().user._id
+              )}
+            >
+              IMG
+            </Button>
+          </Link>
+
+          <Link to={"/gps/" + auth.isAuthenticated().user._id}>
+            <Button
+              style={isActive(
+                history,
+                "/gps/" + auth.isAuthenticated().user._id
+              )}
+            >
+              GPS
+            </Button>
+          </Link>
+
           <Button
             color="inherit"
             onClick={() => {
