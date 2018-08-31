@@ -11,19 +11,14 @@ router
 
 router.route("/api/medias/photo/:mediaId").get(mediaCtrl.photo);
 
-router.route("/api/medias/by/:userId").get(mediaCtrl.listByUser);
+router
+  .route("/api/medias/by/:userId")
+  .get(authCtrl.requireSignin, mediaCtrl.listByUser);
 
 router.route("/api/medias/like").put(authCtrl.requireSignin, mediaCtrl.like);
 router
   .route("/api/medias/unlike")
   .put(authCtrl.requireSignin, mediaCtrl.unlike);
-
-router
-  .route("/api/medias/comment")
-  .put(authCtrl.requireSignin, mediaCtrl.comment);
-router
-  .route("/api/medias/uncomment")
-  .put(authCtrl.requireSignin, mediaCtrl.uncomment);
 
 router
   .route("/api/medias/:mediaId")

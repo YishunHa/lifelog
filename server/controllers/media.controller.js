@@ -7,6 +7,7 @@ import fs from "fs";
 const create = (req, res, next) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
+  console.log(req);
   form.parse(req, (err, fields, files) => {
     if (err) {
       return res.status(400).json({
@@ -15,6 +16,7 @@ const create = (req, res, next) => {
     }
     let media = new Media(fields);
     media.mediaedBy = req.profile;
+    console.log(req.profile);
     if (files.photo) {
       media.photo.data = fs.readFileSync(files.photo.path);
       media.photo.contentType = files.photo.type;
@@ -124,44 +126,6 @@ const unlike = (req, res) => {
   });
 };
 
-const comment = (req, res) => {
-  let comment = req.body.comment;
-  comment.mediaedBy = req.body.userId;
-  Media.findByIdAndUpdate(
-    req.body.mediaId,
-    { $push: { comments: comment } },
-    { new: true }
-  )
-    .populate("comments.mediaedBy", "_id name")
-    .populate("mediaedBy", "_id name")
-    .exec((err, result) => {
-      if (err) {
-        return res.status(400).json({
-          error: errorHandler.getErrorMessage(err)
-        });
-      }
-      res.json(result);
-    });
-};
-const uncomment = (req, res) => {
-  let comment = req.body.comment;
-  Media.findByIdAndUpdate(
-    req.body.mediaId,
-    { $pull: { comments: { _id: comment._id } } },
-    { new: true }
-  )
-    .populate("comments.mediaedBy", "_id name")
-    .populate("mediaedBy", "_id name")
-    .exec((err, result) => {
-      if (err) {
-        return res.status(400).json({
-          error: errorHandler.getErrorMessage(err)
-        });
-      }
-      res.json(result);
-    });
-};
-
 const isMediaer = (req, res, next) => {
   let isMediaer =
     req.media && req.auth && req.media.mediaedBy._id == req.auth._id;
@@ -181,7 +145,5 @@ export default {
   photo,
   like,
   unlike,
-  comment,
-  uncomment,
   isMediaer
 };

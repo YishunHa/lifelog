@@ -11,7 +11,7 @@ export default ({ markup, css }) => {
           <div id="root">${markup}</div>
           <style id="jss-server-side">${css}</style>
           <script type="text/javascript" src="/dist/bundle.js"></script>
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzQNpK8OSEwzED8BFCUenPoMRdfBOKtHY"></script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzQNpK8OSEwzED8BFCUenPoMRdfBOKtHY&libraries=places&callback" async></script>
 
         </body>
       </html>`;

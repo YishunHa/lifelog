@@ -57,21 +57,6 @@ const geo = (lat, lon) => {
     });
 };
 
-const listNewsFeed = (params, credentials) => {
-  return fetch("/api/posts/feed/" + params.userId, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + credentials.t
-    }
-  })
-    .then(response => {
-      return response.json();
-    })
-    .catch(err => console.log(err));
-};
-
 const listByUser = (params, credentials) => {
   return fetch("/api/medias/by/" + params.userId, {
     method: "GET",
@@ -140,13 +125,4 @@ const unlike = (params, credentials, postId) => {
     });
 };
 
-export {
-  create,
-  listByUser,
-  remove,
-  like,
-  unlike,
-  listNewsFeed,
-  geo,
-  getlocation
-};
+export { create, listByUser, remove, like, unlike, geo, getlocation };

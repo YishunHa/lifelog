@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import { read } from "./../user/api-user";
 import { Redirect, Link, withRouter } from "react-router-dom";
-import { listByUser } from "./api-media";
 import auth from "./../auth/auth-helper";
-import { remove, like, unlike } from "./api-media";
+import { remove, like, unlike, listByUser } from "./api-media";
 import GridList from "material-ui/GridList";
 import Grid from "material-ui/Grid";
 import GridListTile from "material-ui/GridList/GridListTile";
@@ -136,7 +135,7 @@ class Medialist extends Component {
           <Grid item xs={3}>
             <Sidebar setcol={this.setCol} />
           </Grid>
-          <Grid item xs={21}>
+          <Grid item xs={9}>
             <GridList
               cellHeight={this.state.colheight}
               className={classes.gridList}

@@ -73,6 +73,7 @@ class CreateMedia extends Component {
     taken: "",
     error: "",
     user: {},
+    checkimg: "",
     filecount: 0
   };
 
@@ -182,7 +183,8 @@ class CreateMedia extends Component {
             photo: "",
             taken: "",
             error: "",
-            file: ""
+            file: "",
+            checkimg: ""
           });
           this.Resetpage();
           alert("success");
@@ -203,10 +205,18 @@ class CreateMedia extends Component {
     ).then(data => {
       if (data.error) {
         this.setState({ error: data.error });
+        this.setState({ file: "" });
       } else {
-        this.setState({ text: "", photo: "", taken: "", file: "", error: "" });
+        this.setState({
+          text: "",
+          photo: "",
+          taken: "",
+          file: "",
+          error: "",
+          checkimg: ""
+        });
         this.Resetpage();
-        alert("gps success");
+        alert(data);
       }
     });
   };
@@ -220,13 +230,16 @@ class CreateMedia extends Component {
     this.mediaData.set("lat", "");
     this.mediaData.set("text", "");
     this.mediaData.set("takenplace", "");
+    this.mediaData.set("takenplace", "");
+    this.fileData.set("file", "");
   };
 
   handleChangeforimg = name => event => {
     const value = event.target.files[0];
-    let length = event.target.files.length;
-    this.setState({ filecount: length }, console.log(this.state.filecount));
+    // let length = event.target.files.length;
+    // this.setState({ filecount: length }, console.log(this.state.filecount));
     this.setState({ [name]: value });
+    this.setState({ checkimg: "1" });
     this.mediaData.set(name, value);
     this.upExif(event);
   };
@@ -234,7 +247,7 @@ class CreateMedia extends Component {
     const value = event.target.files[0];
     this.fileData.set(name, value);
     this.setState({ [name]: value });
-    console.log(this.fileData);
+    //console.log(this.fileData);
   };
 
   render() {
@@ -270,7 +283,7 @@ class CreateMedia extends Component {
                 className={classes.textField}
                 margin="normal"
               />
-              <Grid container spacing={10}>
+              <Grid container spacing={8}>
                 <Grid item xs={4}>
                   <TextField
                     placeholder="latitude"
@@ -334,6 +347,7 @@ class CreateMedia extends Component {
                 id="postbtn"
                 onClick={this.clickPost}
                 className={classes.submit}
+                disabled={this.state.checkimg === ""}
               >
                 Upload
               </Button>
@@ -385,6 +399,7 @@ class CreateMedia extends Component {
                 id="postbtn"
                 onClick={this.UploadFile}
                 className={classes.submit}
+                disabled={this.state.file === ""}
               >
                 Upload
               </Button>
