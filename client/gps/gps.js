@@ -4,21 +4,12 @@ import { withStyles } from "material-ui/styles";
 import { read } from "./../user/api-user";
 import { Redirect, Link, withRouter } from "react-router-dom";
 import auth from "./../auth/auth-helper";
-import GridList from "material-ui/GridList";
 import Grid from "material-ui/Grid";
-import GridListTile from "material-ui/GridList/GridListTile";
-import GridListTileBar from "material-ui/GridList/GridListTileBar";
-import ListSubheader from "material-ui/List/ListSubheader";
-import IconButton from "material-ui/IconButton";
-import InfoIcon from "material-ui-icons/DeleteForever";
 import Sidebar from "./../media/Sidebar";
 import Paper from "material-ui/Paper";
 import { listByUser2 } from "./api-gps";
 import { listByUser } from "./../media/api-media";
-import iconMarker from "material-ui-icons/LocationOn";
-import iconMarkerHover from "material-ui-icons/LocationOn";
-import homeimg from "./../assets/images/1535542312193.png";
-import { create } from "domain";
+import homeimg from "./../assets/images/timg2.gif";
 
 const styles = theme => ({
   root: {
@@ -144,7 +135,7 @@ class Gps extends Component {
     function initMap() {
       map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: latitude, lng: longitude },
-        zoom: 13
+        zoom: 7
       });
       callback();
       // var service = new google.maps.places.PlacesService(map);
@@ -159,16 +150,16 @@ class Gps extends Component {
     }
 
     function callback() {
-      // var marker2 = new google.maps.Marker({
-      //   position: { lat: latitude, lng: longitude },
-      //   animation: google.maps.Animation.DROP,
-      //   map: map,
-      //   title: "Current location"
-      // });
-      // google.maps.event.addListener(marker2, "click", function() {
-      //   infowindow.setContent("You are here");
-      //   infowindow.open(map, this);
-      // });
+      var marker2 = new google.maps.Marker({
+        position: { lat: latitude, lng: longitude },
+        animation: google.maps.Animation.DROP,
+        map: map,
+        title: "Current location"
+      });
+      google.maps.event.addListener(marker2, "click", function() {
+        infowindow.setContent("You are here");
+        infowindow.open(map, this);
+      });
 
       for (var i = 0; i < media.length; i++) {
         createMarker2(media[i]);
@@ -238,7 +229,7 @@ class Gps extends Component {
         position: po
         //animation: google.maps.Animation.DROP
       });
-      console.log("okk");
+      //console.log("okk");
       google.maps.event.addListener(marker3, "click", function() {
         infowindow.setContent(place.UTC_DATE);
         infowindow.open(map, this);
@@ -282,7 +273,7 @@ class Gps extends Component {
               <div id="map" style={{ width: "600px", height: "600px" }}>
                 <img
                   src={homeimg}
-                  style={{ width: "600px", height: "600px" }}
+                  style={{ width: "150px", height: "150px", margin: "220px" }}
                 />
               </div>
             </Paper>

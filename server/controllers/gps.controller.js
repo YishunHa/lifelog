@@ -39,7 +39,7 @@ const create = (req, res, next) => {
               });
             }
           });
-          res.json(info.length + "GPS records have successfully uploaded.");
+          res.json(info.length + " GPS records have successfully uploaded.");
         });
       //gps.file.data = fs.readFileSync(files.file.path);
       //gps.file.contentType = files.file.type;
@@ -58,7 +58,7 @@ const create = (req, res, next) => {
 const listByUser = (req, res) => {
   GPS.find({ UploadBy: req.profile._id })
     .populate("UploadBy", "_id name")
-    .sort("+UTC_DATE")
+    .sort("-UTC_DATE")
     .skip(10000)
     .exec((err, gpsinfo) => {
       if (err) {

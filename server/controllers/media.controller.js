@@ -7,7 +7,6 @@ import fs from "fs";
 const create = (req, res, next) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
-  console.log(req);
   form.parse(req, (err, fields, files) => {
     if (err) {
       return res.status(400).json({
@@ -16,7 +15,6 @@ const create = (req, res, next) => {
     }
     let media = new Media(fields);
     media.mediaedBy = req.profile;
-    console.log(req.profile);
     if (files.photo) {
       media.photo.data = fs.readFileSync(files.photo.path);
       media.photo.contentType = files.photo.type;
