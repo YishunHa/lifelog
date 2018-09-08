@@ -59,7 +59,7 @@ const listByUser = (req, res) => {
   GPS.find({ UploadBy: req.profile._id })
     .populate("UploadBy", "_id name")
     .sort("-UTC_DATE")
-    .skip(10000)
+    .skip(0)
     .exec((err, gpsinfo) => {
       if (err) {
         return res.status(400).json({
